@@ -48,6 +48,13 @@
                                     <h:graphicImage name="images/del.png"/>
                                 </h:commandLink>
                             </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    Editer
+                                </f:facet>
+                                <h:link outcome="edit?id=#{item.id}" 
+                                        value="Editer"/>
+                            </p:column>
                         </p:dataTable>
                     </h:form>
                     <h:messages/>
