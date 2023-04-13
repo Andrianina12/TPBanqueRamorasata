@@ -33,7 +33,7 @@ import mg.itu.tpbanqueramorasata.entities.CompteBancaire;
 )
 @Stateless
 public class GestionnaireCompte {
-    @PersistenceContext
+    @PersistenceContext(unitName = "banquePU")
     private EntityManager em;
     
     public void creerCompte(CompteBancaire c) {
@@ -45,8 +45,8 @@ public class GestionnaireCompte {
         return query.getResultList();
     }
     
-    public int nbComptes() {
-        Query query = em.createQuery("select count(c) from CompteBancaire c");
-        return query.getFirstResult();
+    public Long nbComptes() {
+        Query query = em.createNamedQuery("CompteBancaire.count");
+        return (Long) query.getSingleResult();
     }
 }

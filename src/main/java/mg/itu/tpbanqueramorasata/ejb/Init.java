@@ -22,7 +22,6 @@ public class Init {
      
     @PostConstruct
     public void create() {
-        System.out.println(ejb.nbComptes());
         if(ejb.nbComptes() == 0) {
             ejb.creerCompte(new CompteBancaire("John Lennon", 150000));
             ejb.creerCompte(new CompteBancaire(" Paul McCartney", 950000 ));
