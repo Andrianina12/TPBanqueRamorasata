@@ -4,17 +4,13 @@
  */
 package mg.itu.tpbanqueramorasata.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 /**
  *
@@ -34,8 +30,6 @@ public class OperationBancaire implements Serializable {
   
     private int montant;
     
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)  
-    private List<OperationBancaire> operations = new ArrayList<>();
                     
     public OperationBancaire() { }
                     
@@ -77,9 +71,6 @@ public class OperationBancaire implements Serializable {
         this.montant = montant;
     }
     
-    public List<OperationBancaire> getOperations() {  
-      return operations;  
-    }
 
     @Override
     public int hashCode() {
