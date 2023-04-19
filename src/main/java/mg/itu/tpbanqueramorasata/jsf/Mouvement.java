@@ -95,29 +95,28 @@ public class Mouvement implements Serializable {
     }
   }
 
-  public String enregistrerMouvement() {
-    try {
-        if (typeMouvement.equals("ajout")) {
-            ejb.deposer(compte, montant);
+    public String enregistrerMouvement() {
+        try {
+            if (typeMouvement.equals("ajout")) {
+                ejb.deposer(compte, montant);
+              } else {
+                ejb.retirer(compte, montant);
+              }
+                Util.addFlashInfoMessage("Mouvement enregistré sur compte de " + compte.getNom());
+              return "listeComptes?faces-redirect=true";
+        } catch (EJBException ex) {
+          Throwable cause = ex.getCause();
+          if (cause != null) {
+            if (cause instanceof OptimisticLockException) {
+              Util.messageErreur("Le compte de " + compte.getNom()
+                      + " a été modifié ou supprimé par un autre utilisateur !");
+            } else {
+              Util.messageErreur(cause.getMessage());
+            }
           } else {
-            ejb.retirer(compte, montant);
+            Util.messageErreur(ex.getMessage());
           }
-            Util.addFlashInfoMessage("Mouvement enregistré sur compte de " + compte.getNom());
-          return "listeComptes?faces-redirect=true";
+          return null; // pour rester sur la page s'il y a une exception
         }
-    } catch (EJBException ex) {
-      Throwable cause = ex.getCause();
-      if (cause != null) {
-        if (cause instanceof OptimisticLockException) {
-          Util.messageErreur("Le compte de " + compte.getNom()
-                  + " a été modifié ou supprimé par un autre utilisateur !");
-        } else {
-          Util.messageErreur(cause.getMessage());
-        }
-      } else {
-        Util.messageErreur(ex.getMessage());
-      }
-      return null; // pour rester sur la page s'il y a une exception
-    }
-    
+ }
 }
